@@ -7,7 +7,7 @@ import matplotlib.image as mpimg
 from config import shapefilePrimary, shapefileSecondary, elemDistrictName, secondaryDistrictName, shapeEdgeColor, shapeFaceColor, mapZoomLevel, imageDPI
 
 # read in the first shapefile
-shapes = gpd.read_file(shapefilePrimary)
+shapes1 = gpd.read_file(shapefilePrimary)
 elementaryDistrict = shapes1.loc[shapes1['NAME'] == elemDistrictName]
 
 # read in the second shapefile
