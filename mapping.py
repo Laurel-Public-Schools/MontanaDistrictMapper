@@ -4,16 +4,10 @@ import contextily as ctx
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-from config import shapefilePrimary, shapefileSecondary, shapeEdgeColor, shapeFaceColor, mapZoomLevel, imageDPI
+from config import shapefilePrimary, shapefileSecondary, shapeEdgeColor, shapeFaceColor, mapZoomLevel, imageDPI, mapsize_inches_x, mapsize_inches_y
 
 elemDistrictName = None
 secondaryDistrictName = None
-
-
-
-
-
-
 shapes = None
 
 while shapes is None:
@@ -77,7 +71,7 @@ while matches.empty and district_type == "3":
         if matches.empty:
             print("Could not find a district with that name. Please try again.")
     elemDistrictName = matches
-    print("We found the match " + elementaryMatch["NAME"].to_string(index=False) + ".")
+    print("We found the match " + elemDistrictName["NAME"].to_string(index=False) + ".")
     #This holds on to Elementary Matches and we can just redo the code##
     print("Please type in a part of your High School District's Name")
     selected_district = input()
@@ -108,7 +102,7 @@ print("These are the district names that have like values:")
 print(matches["NAME"].to_string(index=False))
 
 #####
-fig, ax = plt.subplots(figsize=(72, 60))
+fig, ax = plt.subplots(figsize=(mapsize_inches_x, mapsize_inches_y))
 if elemDistrictName is not None:
     elemDistrictName.plot(ax=ax, facecolor=shapeFaceColor, alpha=.25, zorder=1, edgecolor=shapeEdgeColor)
     ctx.add_basemap(ax, zoom=mapZoomLevel, source=ctx.providers.OpenStreetMap.Mapnik, crs=elemDistrictName.crs)
