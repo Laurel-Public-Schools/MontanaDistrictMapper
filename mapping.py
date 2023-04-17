@@ -128,7 +128,7 @@ for img in ax.get_images():
 ax.set_axis_off()
 
 # save the figure with a specific DPI
-plt.savefig('my_map_with_image.png', dpi=imageDPI)
+plt.savefig('output.png', dpi=imageDPI)
 
 # show the plot
 plt.show()
