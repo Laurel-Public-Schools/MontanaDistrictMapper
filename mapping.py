@@ -4,10 +4,11 @@ import contextily as ctx
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-from config import shapefilePrimary, shapefileSecondary, shapeEdgeColor, shapeFaceColor, mapZoomLevel, imageDPI, mapsize_inches_x, mapsize_inches_y
+from config import shapefilePrimary, shapefileSecondary, shapefileUnified, shapeEdgeColor, shapeFaceColor, mapZoomLevel, imageDPI, mapsize_inches_x, mapsize_inches_y
 
 elemDistrictName = None
 secondaryDistrictName = None
+unifiedDistrictName = None
 shapes = None
 
 while shapes is None:
@@ -15,6 +16,7 @@ while shapes is None:
     print("For an Elementary District input 1")
     print("for a High School District input 2")
     print("for both types of Districts input 3")
+    print("for unified districts input 4")
     district_type = input()
     print("You have input " + district_type + ".")
     if district_type == "1":
@@ -24,15 +26,14 @@ while shapes is None:
     elif district_type == "3":
         shapes = gpd.read_file(shapefilePrimary)
         secondary_shapes = gpd.read_file(shapefileSecondary)
+    elif district_type =="4":
+        shapes = gpd.read_file(shapefileUnified)
     else:
         print("That was not a valid answer. Please try again.")
-        
-        
-all_shapes_primary = gpd.read_file(shapefilePrimary)
-all_shapes_secondary = gpd.read_file(shapefileSecondary)
+ 
 
 matches = gpd.GeoDataFrame()  
-while matches.empty and district_type != "3":
+while matches.empty and district_type != '3':
     print("Please type in a part of your school's name:")
     selected_district = input()
     print("You have input " + selected_district + ".")
@@ -45,14 +46,17 @@ while matches.empty and district_type != "3":
         print("Here they are:")
         print(matches["NAME"].to_string(index=False))
         selected_district = input("Please enter the exact name of the district you are looking for: ")
-        matches = matches.loc[matches["NAME"] == selected_district]
+        matches = matches.loc[matches["NAME"].str.contains(selected_district, case=False)]
         if matches.empty:
             print("Could not find a district with that name. Please try again.")
     
-if district_type == "1":
+if district_type == '1':
     elemDistrictName = matches
-elif district_type == "2":
+elif district_type == '2':
     secondaryDistrictName = matches
+elif district_type == '4':
+    unifiedDistrictName = matches
+    
 ## for option 3 ##
 while matches.empty and district_type == "3":
     print("Please type in a part of your Elementary District's Name")
@@ -67,7 +71,7 @@ while matches.empty and district_type == "3":
         print("Here they are:")
         print(matches["NAME"].to_string(index=False))
         selected_district = input("Please enter the exact name of the district you are looking for: ")
-        matches = matches.loc[matches["NAME"] == selected_district]
+        matches = matches.loc[matches["NAME"].str.contains(selected_district, case=False)]
         if matches.empty:
             print("Could not find a district with that name. Please try again.")
     elemDistrictName = matches
@@ -85,7 +89,7 @@ while matches.empty and district_type == "3":
         print("Here they are:")
         print(matches["NAME"].to_string(index=False))
         selected_district = input("Please enter the exact name of the district you are looking for: ")
-        matches = matches.loc[matches["NAME"] == selected_district]
+        matches = matches.loc[matches["NAME"].str.contains(selected_district, case=False)]
         if matches.empty:
             print("Could not find a district with that name. Please try again.")
     secondaryDistrictName = matches
@@ -95,11 +99,10 @@ while matches.empty and district_type == "3":
 
 
 
-    
-
-
 print("These are the district names that have like values:")
 print(matches["NAME"].to_string(index=False))
+print("Generating the map file!")
+print("This may take some time...")
 
 #####
 fig, ax = plt.subplots(figsize=(mapsize_inches_x, mapsize_inches_y))
@@ -112,6 +115,9 @@ if secondaryDistrictName is not None:
     if elemDistrictName is None:
         ctx.add_basemap(ax, zoom=mapZoomLevel, source=ctx.providers.OpenStreetMap.Mapnik, crs=secondaryDistrictName.crs)
 
+if unifiedDistrictName is not None:
+    unifiedDistrictName.plot(ax=ax, facecolor=shapeFaceColor, alpha=.25, zorder=1, edgecolor=shapeEdgeColor)
+    ctx.add_basemap(ax, zoom=mapZoomLevel, source=ctx.providers.OpenStreetMap.Mapnik, crs=unifiedDistrictName.crs)
 
 # apply interpolation to the basemap image
 for img in ax.get_images():
