@@ -8,8 +8,8 @@ imageDPI = 300
 
 # Set Map Properties #
 mapZoomLevel = 8
-mapsize_inches_x = 30
-mapsize_inches_y = 30
+mapsize_inches_x = 5
+mapsize_inches_y = 5
 
 # Read shapefiles
 primary_schools = gpd.read_file(shapefilePrimary)
