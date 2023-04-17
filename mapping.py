@@ -16,7 +16,7 @@ while shapes is None:
     print("For an Elementary District input 1")
     print("for a High School District input 2")
     print("for both types of Districts input 3")
-    print("for unified districts input 4")
+    print("for Unified Districts input 4")
     district_type = input()
     print("You have input " + district_type + ".")
     if district_type == "1":
