@@ -31,5 +31,5 @@ for img in ax.get_images():
     img.set_interpolation('bicubic')
 
 ctx.add_basemap(ax, zoom=mapZoomLevel, source=ctx.providers.OpenStreetMap.Mapnik, crs=secondary_schools.crs)
-plt.savefig('AllDistricts.png', dpi=imageDPI)
+plt.savefig('AllDistricts.png', dpi=imageDPI, bbox_inches='tight', pad_inches=0.1)
 #plt.show()

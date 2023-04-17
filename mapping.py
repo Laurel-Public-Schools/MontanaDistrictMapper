@@ -128,7 +128,7 @@ for img in ax.get_images():
 ax.set_axis_off()
 
 # save the figure with a specific DPI
-plt.savefig('output.png', dpi=imageDPI)
+plt.savefig('output.png', dpi=imageDPI,bbox_inches='tight', pad_inches=0.1)
 
 # show the plot
 plt.show()
