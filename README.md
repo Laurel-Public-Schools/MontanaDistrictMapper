@@ -1,6 +1,6 @@
 # Mapping.py
 
-This Python script allows you to generate a map file of school districts. The user is prompted to select either elementary or high school districts, or both. They are then asked to input a part of the name of the district they're interested in, and the script searches for matches. Once a match is found, a map file is generated with the district(s) highlighted.
+This Python script allows you to generate a map file of school districts. The user is prompted to select either elementary or high school districts, or both. They are then asked to input a part of the name of the district they're interested in, and the script searches for matches. Once a match is found, a map file is generated with the district(s) highlighted. 
 
 ![All Montana Districts](AllDistricts.png?raw=true "All Montana Districts")
 
