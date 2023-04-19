@@ -19,7 +19,6 @@ To use this script, you will need the following Python libraries installed:
 3. Run the `Mapping.py` file with Python 3. 
 
 ## Configuration
-
 In the `config.py` file, you can customize the following parameters:
 
 - `shapefilePrimary`: The path to the shapefile containing the primary school districts.
@@ -32,17 +31,18 @@ In the `config.py` file, you can customize the following parameters:
 - `mapsize_inches_y`: The height of the generated map file. Also impacts the resolution of the generated map file.
 
 ## Example
-
 Here's an example of how to use the script:
 
 1. Clone the repository and navigate to the directory where the `Mapping.py` file is located.
 2. Edit the `config.py` file to match your configuration preferences.
 3. Run the `Mapping.py` file with Python 3.
 4. When prompted, select `1` for elementary school districts.
-5. When prompted, enter `elder grove` as the name of the district you're interested in.
+5. When prompted, enter `laurel` as the name of the district you're interested in.
 6. Wait for the map file to be generated.
 7. Open the map file (`output.png`) to view the highlighted district(s).
 
 ## Credits
+This project uses data from OpenStreetMap. Copyright OpenStreetMap contributors and available under the Open Database License (ODbL)
+For more information on this, please view their copyright information here: https://www.openstreetmap.org/copyright
 
-This script was written by Devan Rodabough.
+This script was written by Devan Rodabough and is licensed under the MIT License.
